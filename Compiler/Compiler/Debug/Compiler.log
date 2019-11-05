@@ -1,0 +1,6 @@
+﻿  Acciones.cpp
+  Production.cpp
+  Generando código...
+C:\Users\jhere\source\repos\Compiler\Compiler\Acciones.cpp(36,16): warning C4018:  '<': no coinciden signed/unsigned
+C:\Users\jhere\source\repos\Compiler\Compiler\Acciones.cpp(68): error C4716:  'Aceptar::sePuedeAplicar': debe devolver un valor
+C:\Users\jhere\source\repos\Compiler\Compiler\Acciones.cpp(85): error C4716:  'Unificar::sePuedeAplicar': debe devolver un valor

@@ -6,6 +6,46 @@
 
 #include "Acciones.h"
 //////////////////////////////////////////////////token <string name, vector<string> variables , vector<string> valores>
+
+bool StopCond(Estado_Compilador* EC, Produccion* prod, size_t INsize) {
+	if (EC->PosPalabra == INsize) return true;
+	if (EC->PosAsterisco >= EC->producRef->der->size()) return true;
+	//if(prod == inicial) return false;
+	return false;
+}
+
+vector<Estado_Compilador>* parser(Produccion* ini, vector<Produccion>* listP, vector<Token> *entrada) {
+	vector<Estado_Compilador>* Chart = new vector<Estado_Compilador>;
+	Dummy(Chart,ini);
+	int indiceChart;
+	for (indiceChart = 0; indiceChart < Chart->size(); ++indiceChart) {
+		Estado_Compilador* cur_EC = &(Chart->at(indiceChart));
+		if (StopCond(cur_EC, ini, entrada->size())) {
+			break;
+		}
+		Expandir* tempExp = new Expandir(cur_EC);
+		Completar* tempCpl = new Completar();
+		Aceptar* tempAcp = new Aceptar(cur_EC);
+		if (tempExp->sePuedeAplicar(cur_EC)) {
+			tempExp->aplica(cur_EC);
+		}
+		else if (Completar::sePuedeAplicar()) {
+			Completar::aplica();
+		}
+		else if (tempAcp->sePuedeAplicar()) {
+			tempAcp->aplica();
+		}
+		delete tempExp;
+		delete tempCpl;
+		delete tempAcp;
+	}
+	if (indiceChart >= Chart->size()) {
+		return NULL
+	}
+	return Chart;
+}
+
+//////////////////////////////////////////////////
 int main(int argc, char* argv[]) {
 	Gramatica grammar;
 /*	grammar.read("E := T Ep");

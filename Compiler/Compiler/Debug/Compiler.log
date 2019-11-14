@@ -1,4 +1,5 @@
 ﻿  Acciones.cpp
+  main.cpp
   Production.cpp
   Generando código...
 C:\Users\jhere\source\repos\Compiler\Compiler\Acciones.cpp(36,16): warning C4018:  '<': no coinciden signed/unsigned

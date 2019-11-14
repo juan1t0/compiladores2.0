@@ -13,40 +13,50 @@ public:
 	~Estado_Compilador() {}
 };
 //queue <Estado_Compilador*> chart;
-vector<Estado_Compilador*> chart;
 
 class Accion {
 public:
 	Gramatica* gramarSource;
-	virtual bool sePuedeAplicar(Estado_Compilador* estado) = 0;
-	virtual void aplica(Estado_Compilador* estado) = 0;//, queue<Estado_Compilador*> &chart) = 0;
+	virtual bool sePuedeAplicar(Estado_Compilador* estado, vector<Estado_Compilador>* chart) = 0;
+	virtual void aplica(Estado_Compilador* estado, vector<Estado_Compilador>* chart) = 0;//, queue<Estado_Compilador*> &chart) = 0;
 };
 
 class Dummy : public Accion {
 public:
 	bool sePuedeAplicar(Estado_Compilador* stte);
-	void aplica(Estado_Compilador* stte);// {//, queue<Estado_Compilador*> &chrt){
-	Dummy(Estado_Compilador* state);
+	void aplica(Estado_Compilador* stte,Produccion* ini);// {//, queue<Estado_Compilador*> &chrt){
+	Dummy(Estado_Compilador* state, Produccion * ini);
 	~Dummy() {}
 };
 
 class Expandir : public Accion {
-	bool sePuedeAplicar(Estado_Compilador* stte);
-	void aplica(Estado_Compilador* stte);// {//, queue<Estado_Compilador*> &chrt){
-	Expandir(Estado_Compilador* state);
+public:
+	bool sePuedeAplicar(Estado_Compilador* stte,vector<Estado_Compilador>* chart);
+	void aplica(Estado_Compilador* stte,vector<Estado_Compilador>* chart);// {//, queue<Estado_Compilador*> &chrt){
+	Expandir(){}
 	~Expandir() {}
 };
 
 class Aceptar : public Accion {
-	bool sePuedeAplicar(Estado_Compilador* stte);
-	void aplica(Estado_Compilador* stte);
-	Aceptar(Estado_Compilador* state);
+public:
+	bool sePuedeAplicar(Estado_Compilador* stte, vector<Estado_Compilador>* chart);
+	void aplica(Estado_Compilador* stte, vector<Estado_Compilador>* chart);
+	Aceptar(){}
 	~Aceptar() {}
 };
 
 class Unificar : public Accion {
-	bool sePuedeAplicar(Estado_Compilador* stte);
-	void aplica(Estado_Compilador* stte);
-	Unificar(Estado_Compilador* state);
+public:
+	bool sePuedeAplicar(Estado_Compilador* stte, vector<Estado_Compilador>* chart);
+	void aplica(Estado_Compilador* stte, vector<Estado_Compilador>* chart);
+	Unificar(){}
 	~Unificar() {}
+};
+
+class Completar : public Accion {
+public:
+	bool sePuedeAplicar(Estado_Compilador* stte, vector<Estado_Compilador>* chart);
+	void aplica(Estado_Compilador* stte, vector<Estado_Compilador>* chart);
+	Completar(){}
+	~Completar() {}
 };

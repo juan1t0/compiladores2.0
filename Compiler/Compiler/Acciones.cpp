@@ -8,28 +8,30 @@ Estado_Compilador::Estado_Compilador(int s_cht, int ast_pos, int pal_pos, Produc
 	this->root = ptr_e;
 }
 
-bool Dummy::sePuedeAplicar(Estado_Compilador* stte) {
+bool Dummy::sePuedeAplicar() {
 	return true; 
 }
-void Dummy::aplica(Estado_Compilador* stte, Produccion* ini) {//, queue<Estado_Compilador*> &chrt){
+void Dummy::aplica(vector<Estado_Compilador> *chart, Produccion* ini){
 	Produccion* fist = gramarSource->get_Production(0);
 	vector<Token> v;
 	v.push_back(fist->nombre);
 	string na = "S";
 	Token nn(na);
 	Produccion* temp = new Produccion(nn,v);
-	stte->PosAsterisco = 0;
-	stte->PosPalabra = 0;
-	stte->root = 0;
-	stte->producRef = temp;
-
+	Estado_Compilador tt;
+	tt.PosAsterisco = 0;
+	tt.PosPalabra = 0;
+	tt.producRef = temp;
+	tt.root = 0;
+//	tt.estadoChart = 0;
 	gramarSource->production.insert(gramarSource->production.begin(), temp);
-
+	chart->push_back(tt);
 	ini = temp; //////revisa esta partre
 }
-Dummy::Dummy(Estado_Compilador* state, Produccion* ini) {
-	if (sePuedeAplicar(state)) {
-		aplica(state,ini);
+//cambiar constructor
+Dummy::Dummy(vector<Estado_Compilador>* chart, Produccion* ini) {
+	if (sePuedeAplicar()) {
+		aplica(chart,ini);
 	}
 }
 bool Expandir::sePuedeAplicar(Estado_Compilador* stte, vector<Estado_Compilador>* chart) {

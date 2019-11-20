@@ -13,6 +13,7 @@ bool StopCond(Estado_Compilador* EC, Produccion* prod, size_t INsize) {
 	//if(prod == inicial) return false;
 	return false;
 }
+//hacer una funcion que con el map de la gramatica me genere un map de los valores de las producciones
 
 vector<Estado_Compilador>* parser(Produccion* ini, vector<Produccion>* listP, vector<Token> *entrada) {
 	vector<Estado_Compilador>* Chart = new vector<Estado_Compilador>;
@@ -23,24 +24,24 @@ vector<Estado_Compilador>* parser(Produccion* ini, vector<Produccion>* listP, ve
 		if (StopCond(cur_EC, ini, entrada->size())) {
 			break;
 		}
-		Expandir* tempExp = new Expandir(cur_EC);
+		Expandir* tempExp = new Expandir();
 		Completar* tempCpl = new Completar();
-		Aceptar* tempAcp = new Aceptar(cur_EC);
-		if (tempExp->sePuedeAplicar(cur_EC)) {
-			tempExp->aplica(cur_EC);
+		Aceptar* tempAcp = new Aceptar();
+		if (tempExp->sePuedeAplicar(cur_EC,Chart)) {
+			tempExp->aplica(cur_EC, Chart);
 		}
-		else if (Completar::sePuedeAplicar()) {
-			Completar::aplica();
+		else if (tempCpl->sePuedeAplicar(cur_EC, Chart)) {
+			tempCpl->aplica(cur_EC, Chart);
 		}
-		else if (tempAcp->sePuedeAplicar()) {
-			tempAcp->aplica();
+		else if (tempAcp->sePuedeAplicar(cur_EC, Chart)) {
+			tempAcp->aplica(cur_EC, Chart);
 		}
 		delete tempExp;
 		delete tempCpl;
 		delete tempAcp;
 	}
 	if (indiceChart >= Chart->size()) {
-		return NULL
+		return NULL;
 	}
 	return Chart;
 }

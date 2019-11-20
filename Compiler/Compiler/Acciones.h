@@ -23,9 +23,9 @@ public:
 
 class Dummy : public Accion {
 public:
-	bool sePuedeAplicar(Estado_Compilador* stte);
-	void aplica(Estado_Compilador* stte,Produccion* ini);// {//, queue<Estado_Compilador*> &chrt){
-	Dummy(Estado_Compilador* state, Produccion * ini);
+	bool sePuedeAplicar();
+	void aplica(vector<Estado_Compilador>* chart, Produccion* ini);// {//, queue<Estado_Compilador*> &chrt){
+	Dummy(vector<Estado_Compilador>* chart, Produccion* ini);
 	~Dummy() {}
 };
 

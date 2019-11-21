@@ -16,14 +16,17 @@ void Gramatica::read(string texto) {
 		stringstream ss2(token);
 		string token2;
 		while (ss2 >> token2) {
-			der.push_back(Token(token2));
+			Token temp(token2);
+			der.push_back(temp);
+			terminals[temp.name] = 1;
 		}
 		Produccion* temp = new Produccion(temp1, der);
 		production.push_back(temp);
 	}
+	discrinator();
 }
 void Gramatica::readContx(string texto) {
-	short separe = texto.find(":=");
+	int separe = texto.find(":=");
 	string nameIZQ = texto.substr(0, texto.find("["));
 	DeteleFromString(nameIZQ, ' ');
 	Token nn(nameIZQ);
@@ -41,6 +44,7 @@ void Gramatica::readContx(string texto) {
 		ctp->der = to_der;
 	}
 	production.push_back(ctp);
+	discrinator();
 }
 void Gramatica::readVarContx(string subtex,Token &toq) {
 	DeteleFromString(subtex, ']');
@@ -64,6 +68,7 @@ vector<Token>* Gramatica::readMoreProduc(string& subtex) {
 		Token nn(nameIZQ);
 		readVarContx(temp.substr(temp.find("[") + 1),nn);
 		otherProd->push_back(nn);
+		terminals[nn.name] = 1;
 		//			production.push_back(& otherProd[otherProd.size()-1]);
 	}
 	return otherProd;
@@ -71,11 +76,12 @@ vector<Token>* Gramatica::readMoreProduc(string& subtex) {
 vector<Token>* Gramatica::readTerminals(string& subtex) {
 	stringstream Saux(subtex);
 	string temp;
-	vector<Token>* terminals = new vector<Token>;
+	vector<Token>* terminls = new vector<Token>;
 	while (Saux >> temp) {
-		terminals->push_back(temp);
+		terminls->push_back(Token(temp));
+		terminals[temp] = 1;
 	}
-	return terminals;
+	return terminls;
 }
 vector<vector<string>> Gramatica::getProduction(string izq) {
 	vector<vector<string>> result;
@@ -107,12 +113,22 @@ void Gramatica::printGrammar() {
 		for (size_t j = 0; j < production[i]->der->size(); ++j) {
 			production[i]->der->at(j).print();
 		}
+		printf("\n");
 	}
 }
 	
 Produccion* Gramatica::get_Production(int pos) {
-	return production[pos];
+	return (production[pos]);
 }
 void Gramatica::insertProduction(Produccion* xtr, int pos) {
 	production.insert(production.begin() + pos, xtr);
+}
+
+void Gramatica::discrinator() {
+	for (int i = 0; i < production.size(); ++i) {
+		terminals[production[i]->nombre.name] = 0;
+	}
+	//for (map<string, bool >::const_iterator it = terminals.begin(); it != terminals.end(); ++it){
+	//	std::cout << it->first << " " << it->second << "\n";
+	//}
 }

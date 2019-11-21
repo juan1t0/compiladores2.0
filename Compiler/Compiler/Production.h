@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <set>
+#include <map>
 #include <string.h>
 #include <sstream>
 #include <queue>
@@ -37,6 +37,8 @@ public:
 	Produccion() {}
 	Produccion(Token& s) : nombre(s) {}
 	Produccion(Token& s, vector<Token>& vec) : nombre(s), der(new vector<Token>(vec)) {}
+
+	string toprint(int posterisco);
 };
 /*
 class SimpleProduc : public Produccion {

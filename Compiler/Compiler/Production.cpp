@@ -52,3 +52,17 @@ void Token::print() {
 	}
 	cout << "\t";
 }
+
+string Produccion::toprint(int posterisco) {
+	string R;
+	R += nombre.name;
+	R += " ::= ";
+	int i;
+	for (i = 0; i < der->size(); ++i) {
+		if (i == posterisco) R += "(*)";
+		R += der->at(i).name;
+		R += " ";
+	}
+	if (i == posterisco) R += "(*)";
+	return R;
+}

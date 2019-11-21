@@ -31,7 +31,15 @@ void Gramatica::readContx(string texto) {
 	DeteleFromString(nameIZQ, ' ');
 	Token nn(nameIZQ);
 	readVarContx(texto.substr(texto.find("[") + 1, separe - texto.find("[") - 1), nn);
-
+	for (int i = 0; i < nn.val->size(); ++i) {
+		bool aux = true;
+		for (int j = 0; j < contescto->size(); ++j) {
+			if (contescto->at(j).first == nn.var->at(i))
+				aux = false;
+		}
+		if(aux)
+			contescto->push_back(make_pair(nn.var->at(i),nn.val->at(i)));
+	}
 	string dere = texto.substr(separe + 2);
 
 	Produccion* ctp = new Produccion(nn);
@@ -114,6 +122,11 @@ void Gramatica::printGrammar() {
 			production[i]->der->at(j).print();
 		}
 		printf("\n");
+	}
+	printf("contx:\n");
+	for (size_t i = 0; i < contescto->size(); ++i) {
+		string uno = contescto->at(i).first, dos = contescto->at(i).second;
+		printf("- %s ::= %s\n",uno.c_str(),dos.c_str());
 	}
 }
 	

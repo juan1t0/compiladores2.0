@@ -82,6 +82,37 @@ void Aceptar::aplica(Estado_Compilador* stte, vector<Estado_Compilador>* chart) 
 //	chart.push_back(NE);
 	///estado char incrementa
 	///mueve el asterisco
+	bool err=false;
+	for (int i = 0; i < stte->producRef->nombre.var->size(); ++i) {
+		err = false;
+		string cur_var = stte->producRef->nombre.var->at(i), cur_val = stte->producRef->nombre.val->at(i);
+		printf("cur:: %s %s\n", cur_var.c_str(), cur_val.c_str());
+		for (int j = 0; j < gramarSource->contescto->size(); ++j) {
+			if (gramarSource->contescto->at(j).first == cur_var) {
+				
+				cout << gramarSource->contescto->at(j).first << " # " << gramarSource->contescto->at(j).second <<"|"<< endl;
+
+				if (gramarSource->contescto->at(j).second == "?_ ") {
+					cout << "vacio ->> ";
+					gramarSource->contescto->at(j).second = cur_val;
+					cout << gramarSource->contescto->at(j).second << endl;
+					break;
+				}
+				else if (gramarSource->contescto->at(j).second == cur_val) {
+					cout << "el mismo" << endl;
+					break;
+				}
+				err = true; 
+				cout << gramarSource->contescto->at(j).first << " ## " << gramarSource->contescto->at(j).second << endl;
+				break;
+			}
+		}
+		if (err)break;
+	}
+	if (err) {
+		cout<<"error de tipo"<<endl;
+		return;
+	}
 	Estado_Compilador* neo = new Estado_Compilador;
 	neo->acc = "acept";
 	neo->PosAsterisco = stte->PosAsterisco + 1;

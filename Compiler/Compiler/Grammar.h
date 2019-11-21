@@ -4,8 +4,7 @@
 struct Gramatica {
 	string estadoInicial;
 	vector<Produccion*> production;
-	//set<string> terminales;
-	//set<string> noterminales;
+	vector<pair<string, string>> *contescto;
 	map<string,bool> terminals;
 
 	void read(string texto);
@@ -15,7 +14,9 @@ struct Gramatica {
 	vector<Token>* readTerminals(string& subtex);
 	vector<vector<string>> getProduction(string izq);
 	void printGrammar();
-	Gramatica() {}
+	Gramatica() {
+		contescto = new vector<pair<string, string>>;
+	}
 	~Gramatica() {}
 
 	Produccion* get_Production(int pos);

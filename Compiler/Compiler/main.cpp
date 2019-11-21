@@ -50,12 +50,13 @@ vector<Estado_Compilador>* parser(Gramatica* gra, vector<Produccion>* listP, vec
 			tempCpl->aplica(cur_EC, Chart);
 			printf("clptado\n");
 		}
-		printf(",[%d %d]\n", indiceChart, Chart->size());
+		printf(">zz>[%d %d]", indiceChart, Chart->size());
+		printEstadoC(Chart->at(indiceChart), indiceChart);
 		delete tempExp;
 		delete tempCpl;
 		delete tempAcp;
 	}
-	printf(">>>(%d %d)", indiceChart, Chart->size());
+	printf(">>>(%d %d)\n", indiceChart, Chart->size());
 	//printEstadoC(Chart->at(indiceChart), indiceChart);
 	if (indiceChart >= Chart->size()) {////////pensá
 		return NULL;
@@ -101,21 +102,41 @@ void printEstadoC(Estado_Compilador ec, int index) {
 //////////////////////////////////////////////////
 int main(int argc, char* argv[]) {
 	Gramatica grammar;
-	grammar.read("Sus[gen=?_,num=?_] := Det[gen=?_] Suj[gen=?_,num=?_]");
-	grammar.read("Det[gen=?f,num=?s] := la");
-	grammar.read("Det[gen=?m,num=?s] := el");
-	grammar.read("Suj[gen=?m,num=?s] := nino");
-	grammar.read("Suj[gen=?f,num=?p] := ninas");
+	
+	grammar.read("Sen[NUM=?_] := NP[NUM=?_] VP[NUM=?_]");
+	grammar.read("NP[NUM=?_] := Det[NUM=?_] N[NUM=?_]");
+	grammar.read("VP[NUM=?_] := V[NUM=?_]");
+	grammar.read("Det[NUM=?s] := this");
+	grammar.read("Det[NUM=?p] := these");
+	grammar.read("N[NUM=?s] := dog");
+	grammar.read("N[NUM=?p] := dogs");
+	grammar.read("V[NUM=?s] := runs");
+	grammar.read("V[NUM=?p] := run");
+
+
+	//grammar.read("Sus[gen=?_,num=?_] := Det[gen=?_,num=?_] Suj[gen=?_,num=?_]");
+	//grammar.read("Det[gen=?f,num=?s] := la");
+	//grammar.read("Det[gen=?m,num=?s] := el");
+	//grammar.read("Suj[gen=?m,num=?s] := nino");
+	//grammar.read("Suj[gen=?f,num=?p] := ninas");
+	
+	/*grammar.read("Sus[gen=?_] := Det[gen=?_] Suj[gen=?_]");
+	grammar.read("Det[gen=?f] := la");
+	grammar.read("Det[gen=?m] := el");
+	grammar.read("Suj[gen=?m] := nino");
+	grammar.read("Suj[gen=?f] := ninas");*/
+
 
 	vector<Estado_Compilador>* myChart;
 	
 	//funcion para tener producciones
 	//funcion para tener input
 	vector<Produccion>* gp = getProducToParsin(grammar);
-	vector<Token>* input = GetToksToParsin("el ninas", grammar);
+	vector<Token>* input = GetToksToParsin("this dog runs", grammar);
 	myChart = parser(&grammar, gp, input);
 	grammar.printGrammar();
 	printf("indexChart\tProduccion\tStatechar\tstateRef\tOperacion\tAncestrolist\n");
+	if (myChart == NULL)return 0;
 	for (int i = 0; i < myChart->size(); ++i) {
 		printEstadoC(myChart->at(i),i);
 	}

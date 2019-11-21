@@ -5,7 +5,7 @@
 #include <string.h>
 #include <sstream>
 #include <queue>
-#include <stack>
+#include <set>
 #include <algorithm>
 
 #define contex pair<string,string>

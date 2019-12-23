@@ -16,24 +16,7 @@ void printMatrix(vector<vector<T>>& mat) {
 		}
 		cout << endl;
 	}
-}/*
-ContexProduc::ContexProduc(Produccion p) :Produccion(p.nombre, *(p.der)) {
-	cout << "aqa" << endl;
-	contexto = 0;
-	derP = 0;
 }
-ContexProduc::ContexProduc(string& name, vector<contex>& ctx) : Produccion(name) {
-	contexto = new vector<contex>(ctx);
-	derP = 0;
-}
-ContexProduc::ContexProduc(string& name, vector<contex>& ctx, vector<string>& der) :Produccion(name, der) {
-	contexto = new vector<contex>(ctx);
-	derP = 0;
-}
-ContexProduc::ContexProduc(string& name, vector<contex>& ctx, vector<Produccion>& derP) :Produccion(name) {
-	contexto = new vector<contex>(ctx);
-	this->derP = new vector<Produccion>(derP);
-}*/
 
 Token::Token(string nn){
 	this->name = nn;

@@ -40,19 +40,3 @@ public:
 
 	string toprint(int posterisco);
 };
-/*
-class SimpleProduc : public Produccion {
-public:
-	SimpleProduc(string& s, vector<string>& vec) : Produccion(s, vec) {}
-};
-
-class ContexProduc : public Produccion {
-public:
-	vector<contex>* contexto = 0;
-	vector<Produccion>* derP = 0;
-	ContexProduc(Produccion p);
-	ContexProduc(string& name, vector<contex>& ctx);
-	ContexProduc(string& name, vector<contex>& ctx, vector<string>& der);
-	ContexProduc(string& name, vector<contex>& ctx, vector<Produccion>& derP);
-};
-*/

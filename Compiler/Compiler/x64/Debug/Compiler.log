@@ -1,0 +1,4 @@
+﻿  Acciones.cpp
+C:\Users\jhere\source\repos\Compiler\Compiler\Acciones.cpp(164,38): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\jhere\source\repos\Compiler\Compiler\Acciones.cpp(177,24): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+  Compiler.vcxproj -> C:\Users\jhere\source\repos\Compiler\x64\Debug\Compiler.exe

@@ -13,7 +13,6 @@ public:
 	Estado_Compilador(int s_cht, int ast_pos, int pal_pos, Produccion* ptr_p, int ptr_e, string acci);
 	~Estado_Compilador() {}
 };
-//queue <Estado_Compilador*> chart;
 
 class Accion {
 public:
@@ -35,7 +34,7 @@ public:
 class Expandir : public Accion {
 public:
 	bool sePuedeAplicar(Estado_Compilador* stte,vector<Estado_Compilador>* chart);
-	void aplica(Estado_Compilador* stte,vector<Estado_Compilador>* chart);// {//, queue<Estado_Compilador*> &chrt){
+	void aplica(Estado_Compilador* stte,vector<Estado_Compilador>* chart);
 	Expandir(){}
 	Expandir(Gramatica* gs) { gramarSource = gs; }
 	~Expandir() {}
@@ -59,7 +58,7 @@ public:
 	vector<Token>* entrada;
 	bool sePuedeAplicar(Estado_Compilador* stte, vector<Estado_Compilador>* chart);
 	void aplica(Estado_Compilador* stte, vector<Estado_Compilador>* chart);
-	Unificar(){}
+	Unificar() { entrada = 0; }
 	Unificar(Gramatica* gs, vector<Token>* in) {
 		gramarSource = gs;
 		entrada = in;

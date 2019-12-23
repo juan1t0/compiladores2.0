@@ -24,6 +24,7 @@ void Gramatica::read(string texto) {
 		production.push_back(temp);
 	}
 	discrinator();
+
 }
 void Gramatica::readContx(string texto) {
 	int separe = texto.find(":=");
@@ -37,8 +38,13 @@ void Gramatica::readContx(string texto) {
 			if (contescto->at(j).first == nn.var->at(i))
 				aux = false;
 		}
-		if(aux)
-			contescto->push_back(make_pair(nn.var->at(i),nn.val->at(i)));
+		if (aux) {
+			string fis = nn.var->at(i);
+			string sec = nn.val->at(i);
+			DeteleFromString(fis, ' ');
+			DeteleFromString(sec, ' ');
+			contescto->push_back(make_pair(fis, sec));
+		}
 	}
 	string dere = texto.substr(separe + 2);
 
@@ -77,7 +83,6 @@ vector<Token>* Gramatica::readMoreProduc(string& subtex) {
 		readVarContx(temp.substr(temp.find("[") + 1),nn);
 		otherProd->push_back(nn);
 		terminals[nn.name] = 1;
-		//			production.push_back(& otherProd[otherProd.size()-1]);
 	}
 	return otherProd;
 }
@@ -141,7 +146,4 @@ void Gramatica::discrinator() {
 	for (int i = 0; i < production.size(); ++i) {
 		terminals[production[i]->nombre.name] = 0;
 	}
-	//for (map<string, bool >::const_iterator it = terminals.begin(); it != terminals.end(); ++it){
-	//	std::cout << it->first << " " << it->second << "\n";
-	//}
 }
